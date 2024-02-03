@@ -24,7 +24,7 @@ create table contacts (
 create table chats (
     id bigserial primary key,
     is_dead boolean default false,
-    created_at date default now()
+    created_at timestamp default now()
 );
 
 -- this tables defines relationship between users and chats
@@ -49,7 +49,7 @@ create table chat_messages (
     chat_id bigint references chats(id) on delete cascade,
     sender_id bigint references users(id) on delete set null,
     content varchar(512),
-    created_at date default now()
+    created_at timestamp default now()
 );
 
 -- this tables defines groups
@@ -64,7 +64,7 @@ create table groups (
     image varchar,
     description varchar(128),
     owner_id bigint references users(id) on delete set null,
-    created_at date default now()
+    created_at timestamp default now()
 );
 
 -- this tables defines relationship between users and groups
@@ -90,7 +90,7 @@ create table group_messages (
     group_id bigint references groups(id) on delete cascade,
     sender_id bigint references users(id) on delete set null,
     content varchar(300),
-    created_at date default now()
+    created_at timestamp default now()
 );
 
 -- this tables defines channels
@@ -106,7 +106,7 @@ create table channels (
     description varchar(128),
     name varchar(64) not null,
     owner_id bigint references users(id) references users(id) on delete set null,
-    created_at date default now()
+    created_at timestamp default now()
 );
 
 -- this tables defines relationship between member users and channels
@@ -150,5 +150,5 @@ create table channel_posts (
     channel_id bigint references channels(id) on delete cascade,
     author_id bigint references users(id) on delete set null,
     content varchar(300),
-    created_at date default now()
+    created_at timestamp default now()
 );
