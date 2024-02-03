@@ -7,3 +7,13 @@ createdb:
 dropdb:
 	docker exec -it postgres-container dropdb messenger
 
+createmigrationfile:
+	migrate create -ext sql -dir db/migration -seq init_schema
+
+migrateup:
+	 migrate -path ./db/migration -database "postgres://root:1234@localhost:5432/messenger?sslmode=disable" -verbose up
+
+migratedown:
+	 migrate -path ./db/migration -database "postgres://root:1234@localhost:5432/messenger?sslmode=disable" -verbose down
+
+.PHONY: postgres, createdb, dropdb, migratedown, migrateup
